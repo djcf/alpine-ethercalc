@@ -7,18 +7,22 @@ services:
       options:
         max-size: 25k
     networks:
-#      - docker_default
-      - redis_default
+      - redis
+    external_links:
+      - redis:redis
     image: ethercalc:alpine
     build: .
     external_links:
       - redis_db_1
     environment:
-      VIRTUAL_HOST: calc.noflag.org.uk
+      VIRTUAL_HOST: ethercalc
       VIRTUAL_PORT: 8000
-    hostname: calc.noflag.org.uk
 
 networks:
   default:
     external:
       name: docker_default
+  redis:
+    external:
+      name: redis_default
+
